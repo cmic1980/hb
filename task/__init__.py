@@ -1,7 +1,6 @@
 # __init__.py
 import json
 import datetime
-import time
 from enum import Enum
 
 
@@ -9,13 +8,12 @@ class OrderType(Enum):
     buy = 1
     sell = 2
 
-
 class OrderStatus(Enum):
     pending = 1
     done = 2
+    cancelled = 3
 
-
-class Order():
+class BuyOrder():
     def __init__(self):
         self.symbol = None
         self.amount = 0
@@ -26,7 +24,7 @@ class Order():
         self.price = 0
 
 
-def load_pending_order_list():
+def load_buy_order_list():
     # 读取下单Order任务
     file = open("task/pending.json")
     s = file.read()
@@ -37,7 +35,7 @@ def load_pending_order_list():
     # 转换成 Order List 对象
     order_list = []
     for item in item_list:
-        order = Order()
+        order = BuyOrder()
         order.symbol = item["symbol"]
         order.amount = item["amount"]
         order.time =  item["time"]

@@ -1,5 +1,6 @@
 import sched
 import logging
+import time
 from task import *
 from api.HuobiServices import *
 
@@ -39,8 +40,8 @@ def run_task():
     msg = '运行次数（{0}）运行时间 - {1}'.format(index, time.time())
     logging.info(msg)
 
-    order_list = load_pending_order_list()
-    for order in order_list:
+    buy_order_list = load_buy_order_list()
+    for order in buy_order_list:
         # 未执行已经并且已经到达执行时间
         if order.status == OrderStatus.pending.value and order.time < time.time():
             # 买单
@@ -50,7 +51,7 @@ def run_task():
                 order.status = OrderStatus.done.value
                 order.id = result["data"]
 
-    save_order_list(order_list)
+    save_order_list(buy_order_list)
 
     s.enter(10, 1, run_task)
     s.run()

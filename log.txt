@@ -1,10 +1,2 @@
-2018-02-22 Thursday 16:46:53  run.py : INFO  开始运行 ...
-2018-02-22 Thursday 16:46:53  run.py : INFO  运行次数（1）运行时间 - 1519289213.9993107
-2018-02-22 Thursday 16:46:54  connectionpool.py : DEBUG  Starting new HTTPS connection (1): api.huobi.pro
-2018-02-22 Thursday 16:46:54  connectionpool.py : DEBUG  https://api.huobi.pro:443 "GET /v1/account/accounts?AccessKeyId=2c862239-1f861cf9-9ce73af3-6c7ed&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2018-02-22T08%3A46%3A53&Signature=AsWEfJec2gQ4Ix2tbpvGWn1x0KEdPzl5Fl3kEQXpKc0%3D HTTP/1.1" 200 None
-2018-02-22 Thursday 16:46:54  connectionpool.py : DEBUG  Starting new HTTPS connection (1): api.huobi.pro
-2018-02-22 Thursday 16:46:55  connectionpool.py : DEBUG  https://api.huobi.pro:443 "POST /v1/order/orders/place?AccessKeyId=2c862239-1f861cf9-9ce73af3-6c7ed&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2018-02-22T08%3A46%3A54&Signature=aY4vnmVrDdc3EIWo%2FSncFbcYjQMxO32bUhc%2B5VoWGLE%3D HTTP/1.1" 200 None
-2018-02-22 Thursday 16:47:05  run.py : INFO  运行次数（2）运行时间 - 1519289225.1821854
-2018-02-22 Thursday 16:47:15  run.py : INFO  运行次数（3）运行时间 - 1519289235.1897564
-2018-02-22 Thursday 16:47:25  run.py : INFO  运行次数（4）运行时间 - 1519289245.1974354
-2018-02-22 Thursday 16:47:35  run.py : INFO  运行次数（5）运行时间 - 1519289255.2036781
+2018-02-22 Thursday 17:08:12  run.py : INFO  开始运行 ...
+2018-02-22 Thursday 17:08:12  run.py : INFO  运行次数（1）运行时间 - 1519290492.068746

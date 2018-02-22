@@ -4,9 +4,9 @@ from api.HuobiServices import *
 
 kline = get_kline('eoseth', '60min', 2000)
 
-order_list = load_pending_order_list()
+order_list = load_buy_order_list()
 print(order_list)
 
-s = datetime.datetime(2018, 2, 22, 13)
+s = datetime.datetime(2018, 2, 22, 22)
 t = time.mktime(s.timetuple())
 print(t)
