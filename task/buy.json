@@ -1,11 +1,20 @@
 [
-  {
+    {
     "id": "",
     "symbol": "eoseth",
     "amount": 1,
     "time": 1519290000,
     "status": 1,
     "type": 1,
-    "price":0.00001
+    "price":0.001
+  },
+  {
+    "id": "",
+    "symbol": "eoseth",
+    "amount": 1,
+    "time": 1519290000,
+    "status": 1,
+    "type": 2,
+    "price":1
   }
 ]

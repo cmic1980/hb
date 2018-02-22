@@ -1,5 +1,6 @@
-2018-02-22 Thursday 23:15:22  run.py : INFO  开始运行 ...
-2018-02-22 Thursday 23:15:26  connectionpool.py : DEBUG  Starting new HTTPS connection (1): api.huobi.pro
-2018-02-22 Thursday 23:15:27  connectionpool.py : DEBUG  https://api.huobi.pro:443 "GET /v1/account/accounts?AccessKeyId=2c862239-1f861cf9-9ce73af3-6c7ed&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2018-02-22T15%3A15%3A26&Signature=Cdp3HgAXr5xIybmieyqL1HjxIEzDzyXcqX6BCGmsdHY%3D HTTP/1.1" 200 None
-2018-02-22 Thursday 23:15:27  connectionpool.py : DEBUG  Starting new HTTPS connection (1): api.huobi.pro
-2018-02-22 Thursday 23:15:27  connectionpool.py : DEBUG  https://api.huobi.pro:443 "POST /v1/order/orders/place?AccessKeyId=2c862239-1f861cf9-9ce73af3-6c7ed&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2018-02-22T15%3A15%3A27&Signature=pN80AW4QiNEt%2F8HTAakIy5uG7eCjnbbiosE46K2GEIQ%3D HTTP/1.1" 200 None
+2018-02-22 Thursday 23:28:23  run.py : INFO  开始运行 ...
+2018-02-22 Thursday 23:28:23  connectionpool.py : DEBUG  Starting new HTTPS connection (1): api.huobi.pro
+2018-02-22 Thursday 23:28:24  connectionpool.py : DEBUG  https://api.huobi.pro:443 "GET /v1/account/accounts?AccessKeyId=2c862239-1f861cf9-9ce73af3-6c7ed&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2018-02-22T15%3A28%3A23&Signature=usGkac0C7GhxtZYMabWNpoZkLSHY0TrI8qdpOzi9Yq0%3D HTTP/1.1" 200 None
+2018-02-22 Thursday 23:28:24  connectionpool.py : DEBUG  Starting new HTTPS connection (1): api.huobi.pro
+2018-02-22 Thursday 23:28:24  connectionpool.py : DEBUG  https://api.huobi.pro:443 "POST /v1/order/orders/place?AccessKeyId=2c862239-1f861cf9-9ce73af3-6c7ed&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2018-02-22T15%3A28%3A24&Signature=Q1gzpMXIry777wafN%2FyK6s5%2BpnbmOk78kOwFcYLdLfQ%3D HTTP/1.1" 200 None
+2018-02-22 Thursday 23:28:24  run.py : INFO  下卖单（ID：1731381164，交易品种：eoseth， 数量：1，时间：1519290000，价格：1.0）
