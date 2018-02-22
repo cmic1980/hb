@@ -22,6 +22,7 @@ class BuyOrder():
         self.status = OrderStatus.pending  # 1 pending, 2 done
         self.type = OrderType.buy
         self.price = 0
+        self.cancel_time = -1
 
 
 def load_buy_order_list():
@@ -42,6 +43,8 @@ def load_buy_order_list():
         order.status = int(item["status"])
         order.type = int(item["type"])
         order.price = float(item["price"])
+        if item.__contains__("cancel_time") == True:
+            order.cancel_time = item["cancel_time"]
         order_list.append(order)
 
     return order_list
