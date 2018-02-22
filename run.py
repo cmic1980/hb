@@ -51,8 +51,7 @@ def run_task():
                 order.status = OrderStatus.done.value
                 order.id = result["data"]
 
-    save_order_list(buy_order_list)
-
+    save_buy_order_list(buy_order_list)
     s.enter(10, 1, run_task)
     s.run()
 

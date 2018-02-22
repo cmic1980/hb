@@ -26,7 +26,7 @@ class BuyOrder():
 
 def load_buy_order_list():
     # 读取下单Order任务
-    file = open("task/pending.json")
+    file = open("task/buy.json")
     s = file.read()
     file.close()
 
@@ -46,7 +46,7 @@ def load_buy_order_list():
 
     return order_list
 
-def save_order_list(order_list):
+def save_buy_order_list(order_list):
     pending_list = []
 
     # 读取完成 的订单
@@ -77,7 +77,7 @@ def save_order_list(order_list):
 
     # 保存 未完成 的订单
     s = json.dumps(pending_list)
-    file = open("task/pending.json", 'w')
+    file = open("task/buy.json", 'w')
     file.write(s)
     file.close()
 
