@@ -2,20 +2,10 @@
   {
     "id": "",
     "symbol": "eoseth",
-    "amount": 100,
+    "amount": 1,
     "time": 1519290000,
     "status": 1,
     "type": 1,
-    "price": 0.0001,
-    "cancel_time": 1519294800
-  },
-  {
-    "id": "",
-    "symbol": "eoseth",
-    "amount": 100,
-    "time": 1519308000,
-    "status": 1,
-    "type": 1,
-    "price": 0.0001
+    "price":0.00001
   }
 ]

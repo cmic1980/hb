@@ -32,6 +32,7 @@ index = 0
 
 cancel_list = []
 
+
 # 第二个工作函数，自调任务，自己开启定时并启动。
 def run_task():
     # 只要没有让自己调用到第3次，那么继续重头开始执行本任务
@@ -46,21 +47,35 @@ def run_task():
     for order in buy_order_list:
         # 未执行已经并且已经到达执行时间
         if order.status == OrderStatus.pending.value and order.time < time.time():
-            # 买单
-            if order.type == OrderType.buy.value :
-                # 下单
-                result = send_order(order.amount, '', order.symbol, 'buy-limit', order.price)
+            type_name = '下买单'
+            order_type = ''
+            amount = order.amount
+            if order.type == OrderType.buy.value:
+                order_type = 'buy-limit'
+                type_name = '下买单'
+            elif order.type == OrderType.sell.value:
+                order_type = 'sell-limit'
+                type_name = '下卖单'
+
+                if amount == -1:
+                    currency = order.symbol.replace('eth', '').replace('btc', '')
+                    balance = get_symbol_balance(currency)
+                    amount = float(balance['balance'])
+
+            # 下单
+            result = send_order(amount, '', order.symbol, order_type, order.price)
+            if result["status"] == "ok":
                 order.status = OrderStatus.done.value
                 order.id = result["data"]
 
-                msg = "下买单（ID：{0}，交易品种：{1}， 数量：{2}，时间：{3}，价格：{4}）".format(order.id, order.symbol, order.amount,
-                                                                          order.time, order.price)
-                logging.info(msg)
+            msg = "{0}（ID：{1}，交易品种：{2}， 数量：{3}，时间：{4}，价格：{5}）".format(type_name, order.id, order.symbol, amount,
+                                                                      order.time, order.price)
+            logging.info(msg)
 
-                # 加入 cancel 任务
-                if order.cancel_time != None:
-                    cancel = {"id": order.id, "time": order.cancel_time}
-                    cancel_list.append(cancel)
+            # 加入 cancel 任务
+            if order.cancel_time != None:
+                cancel = {"id": order.id, "time": order.cancel_time}
+                cancel_list.append(cancel)
 
     save_buy_order_list(buy_order_list)
 
@@ -74,9 +89,8 @@ def run_task():
     s.enter(10, 1, run_task)
     s.run()
 
+
 logging.info('开始运行 ...')
 
 # 开启自调任务
 run_task()
-
-

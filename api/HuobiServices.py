@@ -117,6 +117,20 @@ def get_balance(acct_id=None):
     params = {"account-id": acct_id}
     return api_key_get(params, url)
 
+# 获取账户指定币种资产
+def get_symbol_balance(currency):
+    result = None
+    balance = get_balance()
+    data = balance["data"]
+    data_list = data["list"]
+
+    for data_item in data_list:
+        if data_item["currency"] == currency and data_item['type'] == 'trade':
+            result =  data_item
+
+    return result
+
+
 
 # 下单
 

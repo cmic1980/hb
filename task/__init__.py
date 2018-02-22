@@ -22,7 +22,7 @@ class BuyOrder():
         self.status = OrderStatus.pending  # 1 pending, 2 done
         self.type = OrderType.buy
         self.price = 0
-        self.cancel_time = -1
+        self.cancel_time = None
 
 
 def load_buy_order_list():
