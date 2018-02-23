@@ -54,7 +54,7 @@ def save_buy_order_list(order_list):
 
     # 读取完成 的订单
     now = datetime.datetime.now()
-    file = open("task/d{0}-{1}-{2}.json".format(now.year, now.month, now.day))
+    file = open("task/out.json")
     s = file.read()
     file.close()
 
@@ -87,6 +87,6 @@ def save_buy_order_list(order_list):
     # 保存 完成 的订单
     s = json.dumps(done_list)
     now = datetime.datetime.now()
-    file = open("task/d{0}-{1}-{2}.json".format(now.year, now.month, now.day), 'w')
+    file = open("task/out.json", "w")
     file.write(s)
     file.close()

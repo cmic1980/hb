@@ -3,6 +3,7 @@ import logging
 import time
 from task import *
 from api.HuobiServices import *
+import math
 
 
 def intitial_logging():
@@ -50,32 +51,38 @@ def run_task():
             type_name = '下买单'
             order_type = ''
             amount = order.amount
+
             if order.type == OrderType.buy.value:
                 order_type = 'buy-limit'
                 type_name = '下买单'
+                # 加入买单 cancel 任务
+                if order.cancel_time != None:
+                    cancel = {"id": order.id, "time": order.cancel_time}
+                    cancel_list.append(cancel)
+
             elif order.type == OrderType.sell.value:
                 order_type = 'sell-limit'
                 type_name = '下卖单'
 
-                if amount == -1:
-                    currency = order.symbol.replace('eth', '').replace('btc', '')
-                    balance = get_symbol_balance(currency)
-                    amount = float(balance['balance'])
+                currency = order.symbol.replace('eth', '').replace('btc', '')
+                balance = get_symbol_balance(currency)
+                amount = float(balance['balance'])
+                amount = round(amount, 2)
 
             # 下单
             result = send_order(amount, '', order.symbol, order_type, order.price)
+            # 设置状态
             if result["status"] == "ok":
-                order.status = OrderStatus.done.value
                 order.id = result["data"]
+                if order.type == OrderType.buy.value:
+                    order.status = OrderStatus.done.value
+                elif order.type == OrderType.sell.value:  # 处理卖单
+                    if order.status == OrderStatus.pending.value and order.cancel_time < time.time():
+                        order.status = OrderStatus.done.value
 
             msg = "{0}（ID：{1}，交易品种：{2}， 数量：{3}，时间：{4}，价格：{5}）".format(type_name, order.id, order.symbol, amount,
                                                                       order.time, order.price)
             logging.info(msg)
-
-            # 加入 cancel 任务
-            if order.cancel_time != None:
-                cancel = {"id": order.id, "time": order.cancel_time}
-                cancel_list.append(cancel)
 
     save_buy_order_list(buy_order_list)
 
