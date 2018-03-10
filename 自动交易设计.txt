@@ -1,0 +1,24 @@
+symbol, amount, exec_time, buy_order_id，sell_order_id, price，status，t
+
+
+1 -> 挂单 time + 30s
+
+	查询现有数量 now_amount
+
+	到达给定时间（exec_time）30秒后，获取最后一小时交易品种（symbol）K线开盘价作为开盘价（price），用给定数量（amount）- 现有数量（now_amount） 价格挂单，挂单成功后保存订单id（order_id）和买入价格（price），状态（status）变为挂单
+
+
+2 -> 挂卖单 time + 1h + 10m
+	给定时间1小时10分钟后，查询卖出数量（当前账户品种数量）， 用买入价格（price）* 盈利（t）作为买车价格挂单
+
+
+
+
+特殊情况处理
+
+A -> 给定时间一小时后没成交取消买单 time + 1h
+	给定时间1小时后用订单id（order_id）取消挂单
+
+
+B -> 给定时间23:50后 卖单没有完全成交撤单 （）
+

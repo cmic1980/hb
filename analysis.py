@@ -54,7 +54,7 @@ def show_analysis_table(kline_list, hour, t):
 
     return out
 
-def get_symbol_analysis(symbol, probability):
+def get_symbol_analysis(symbol, probability, show_detail=False):
     kline_list = get_kline_ex(symbol,"60min",2000)
     # 分析
     max_income = 0
@@ -65,7 +65,8 @@ def get_symbol_analysis(symbol, probability):
             if out["income"] > max_income and out["scale"] > probability:
                 max_income = out["income"]
                 max_out = out
-            # print(out)
+            if show_detail:
+                print(out)
 
     print(symbol + " max_out: ")
     print(max_out)
@@ -82,3 +83,7 @@ for symbol in symbol_list:
       pass
     else:
         pass
+
+'''
+get_symbol_analysis('payeth', 0.9, True)
+'''
