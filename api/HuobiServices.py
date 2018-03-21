@@ -8,6 +8,7 @@
 import time
 import datetime as dt
 from api.Utils import *
+
 '''
 Market data API
 '''
@@ -27,6 +28,7 @@ def get_kline(symbol, period, size=150):
 
     url = MARKET_URL + '/market/history/kline'
     return http_get_request(url, params)
+
 
 # 获取KLine
 def get_kline_ex(symbol, period, size=150):
@@ -151,16 +153,15 @@ def get_balance(acct_id=None):
 
 
 # 获取账户指定币种资产
-def get_symbol_balance(currency):
-    result = None
+def get_symbol_balance(symbol):
+    result = 0
     balance = get_balance()
     data = balance["data"]
     data_list = data["list"]
 
     for data_item in data_list:
-        if data_item["currency"] == currency and data_item['type'] == 'trade':
-            result = data_item
-
+        if data_item["currency"] == symbol:
+            result = result + float(data_item["balance"])
     return result
 
 
