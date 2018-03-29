@@ -121,6 +121,16 @@ def get_eth_symbol_list(long_polling=None):
             symbol_list.append(symbol)
     return symbol_list
 
+# 获取  支持的交易对
+def get_btc_symbol_list(long_polling=None):
+    symbol_list = []
+    symbols = get_symbols()
+    data = symbols["data"]
+    for item in data:
+        if item["quote-currency"] == "btc":
+            symbol = item["base-currency"] + item["quote-currency"]
+            symbol_list.append(symbol)
+    return symbol_list
 
 '''
 Trade/Account API

@@ -85,5 +85,6 @@ for symbol in symbol_list:
         pass
 
 '''
-get_symbol_analysis('payeth', 0.9, True)
+get_symbol_analysis('veneth', 0.95, True)
 '''
+

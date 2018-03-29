@@ -15,10 +15,16 @@ import urllib.parse
 import urllib.request
 import requests
 
-# 此处填写APIKEY
+# 从key file 中读取 key
+key_file_path = "/Users/fyu1/src/key/hb.json"
+key_file = open(key_file_path)
+data = key_file.read()
+key_file.close()
+key_file_object = json.loads(data)
 
-ACCESS_KEY = "2c862239-1f861cf9-9ce73af3-6c7ed"
-SECRET_KEY = "66ead5b3-261721f8-cc099e40-e97e4"
+
+ACCESS_KEY = key_file_object["ACCESS_KEY"]
+SECRET_KEY = key_file_object["SECRET_KEY"]
 
 
 

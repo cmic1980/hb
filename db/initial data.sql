@@ -31,6 +31,7 @@ DELETE FROM `daily_trade`;
 INSERT INTO `daily_trade` (`daily_trade_id`, `balance`, `symbol`, `exec_time`, `t`, `buy_order_id`, `buy_price`, `sell_order_id`, `status`) VALUES
 	(3, 150, 'omg', '21:00', 1.3, NULL, NULL, NULL, 1),
 	(4, 12000, 'cmt', '23:00', 1.3, NULL, NULL, NULL, 1);
+
 /*!40000 ALTER TABLE `daily_trade` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
