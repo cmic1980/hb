@@ -1,5 +1,6 @@
-
+import pymysql.cursors
 from api.HuobiServices import *
+from datetime import datetime
 
 '''
 symbol_list = get_eth_symbol_list()
@@ -8,6 +9,7 @@ for symbol in symbol_list:
     print(symbol)
     print(kline_list)
 '''
+
 
 def show_analysis_table(kline_list, hour, t):
     list = []
@@ -34,8 +36,10 @@ def show_analysis_table(kline_list, hour, t):
     # 负收益
     c2 = 0
     d = 100
+    price = 0
     for item in list:
         if item['open'] != 0:
+            price = item['open']
             s = (item['high'] - item['open']) * 100 / item['open']
 
             if s > t:
@@ -50,12 +54,14 @@ def show_analysis_table(kline_list, hour, t):
     out["hour"] = hour
     out["t"] = t
     out["income"] = d
+    out["price"] = price
     out["scale"] = c1 / (c1 + c2)
 
     return out
 
+
 def get_symbol_analysis(symbol, probability, show_detail=False):
-    kline_list = get_kline_ex(symbol,"60min",2000)
+    kline_list = get_kline_ex(symbol, "60min", 1000)
     # 分析
     max_income = 0
     max_out = 0
@@ -68,23 +74,81 @@ def get_symbol_analysis(symbol, probability, show_detail=False):
             if show_detail:
                 print(out)
 
-    print(symbol + " max_out: ")
-    print(max_out)
-    print(len(kline_list))
+    symbol_analysis = {}
+    symbol_analysis["symbol"] = symbol
+    symbol_analysis["max_out"] = max_out
+    symbol_analysis["days"] = len(kline_list)
+    return symbol_analysis
 
+
+def submit_analysis_result(analysis_time, symbol_analysis):
+    symbol = symbol_analysis["symbol"]
+    max_out = symbol_analysis["max_out"]
+    if max_out != 0:
+        hour = max_out["hour"]
+        t = max_out["t"]
+        income = max_out["income"]
+        scale = max_out["scale"]
+        price = max_out["price"]
+        # Connect to the database
+        connection = pymysql.connect(host='localhost',
+                                     user='root',
+                                     password='password',
+                                     db='hb',
+                                     cursorclass=pymysql.cursors.DictCursor)
+
+        try:
+            with connection.cursor() as cursor:
+                # Create a new record
+                sql = "INSERT INTO `analysis_result` (`analysis_time`, `symbol`, `s_hour`, `t`, `income`, `scale`, `current`, `price`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+                cursor.execute(sql, (analysis_time, symbol, hour, t, income, scale,1,price))
+
+            # connection is not autocommit by default. So you must commit to save
+            # your changes.
+            connection.commit()
+        finally:
+            connection.close()
+
+def initial_analysis_result():
+    connection = pymysql.connect(host='localhost',
+                                 user='root',
+                                 password='password',
+                                 db='hb',
+                                 cursorclass=pymysql.cursors.DictCursor)
+    try:
+        with connection.cursor() as cursor:
+            # Create a new record
+            sql = "update `analysis_result` set `current` = 0 "
+            cursor.execute(sql)
+
+        # connection is not autocommit by default. So you must commit to save
+        # your changes.
+        connection.commit()
+    finally:
+        connection.close()
 
 
 symbol_list = get_eth_symbol_list()
+
+dt = datetime.now()
+initial_analysis_result()
+print(dt)
+
 for symbol in symbol_list:
     try:
-        get_symbol_analysis(symbol, 0.95)
+        symbol_analysis = get_symbol_analysis(symbol, 0.95)
+
+        print(symbol_analysis["symbol"] + " max_out: ")
+        print(symbol_analysis["max_out"])
+        print(symbol_analysis["days"])
+
+        submit_analysis_result(dt, symbol_analysis)
         print("-------------------------------------------")
     except Exception:
-      pass
+        pass
     else:
         pass
 
 '''
 get_symbol_analysis('veneth', 0.95, True)
 '''
-

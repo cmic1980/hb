@@ -16,7 +16,7 @@ import urllib.request
 import requests
 
 # 从key file 中读取 key
-key_file_path = "/Users/fyu1/src/key/hb.json"
+key_file_path = "c:/src/keys/hb.json"
 key_file = open(key_file_path)
 data = key_file.read()
 key_file.close()
