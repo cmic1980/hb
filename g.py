@@ -5,12 +5,16 @@ import sched
 import pymysql.cursors
 from api.HuobiServices import *
 
-def get_order_list_by_status(status):
+def get_connection():
     connection = pymysql.connect(host='localhost',
                                  user='root',
                                  password='password',
                                  db='hb',
                                  cursorclass=pymysql.cursors.DictCursor)
+    return connection
+
+def get_order_list_by_status(status):
+    connection = get_connection()
     try:
         with connection.cursor() as cursor:
             # Create a new record
@@ -33,11 +37,7 @@ def set_buy_order(order):
     buy_time = order["r_buy_time"]
 
     if now > buy_time:
-        connection = pymysql.connect(host='localhost',
-                                     user='root',
-                                     password='password',
-                                     db='hb',
-                                     cursorclass=pymysql.cursors.DictCursor)
+        connection = connection = get_connection()
         try:
             with connection.cursor() as cursor:
                 # 下单
@@ -73,6 +73,16 @@ def cancel_buy_order(order):
         order_id = order["order_id"]
         if order_id!=-1:
             cancel_order(order_id)
+
+            connection = connection = get_connection()
+            try:
+                with connection.cursor() as cursor:
+                    sql = "update order_item set status=5 where order_item_id=%s"
+                    order_item_id = order["order_item_id"]
+                    cursor.execute(sql,(order_item_id))
+                connection.commit()
+            finally:
+                connection.close()
 # 下卖单
 def set_sell_order(order):
     # 有
