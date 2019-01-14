@@ -21,8 +21,6 @@ CREATE TABLE IF NOT EXISTS `daily_trade` (
   `buy_order_id` int(11) DEFAULT NULL COMMENT '买单id，挂买单成功后更新到该字段',
   `buy_price` float DEFAULT NULL,
   `sell_order_id` int(11) DEFAULT NULL COMMENT '卖单id，挂卖单成功后更新到该字段',
-  `amount` float DEFAULT NULL COMMENT '币种成交量',
-  `vol` float DEFAULT NULL COMMENT 'ETH成交量',
   `status` int(11) NOT NULL COMMENT '当前状态',
   PRIMARY KEY (`daily_trade_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
@@ -39,3 +37,41 @@ INSERT INTO `daily_trade` (`daily_trade_id`, `balance`, `symbol`, `exec_time`, `
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+
+CREATE TABLE `analysis_result` (
+	`analysis_result_id` INT(11) NOT NULL AUTO_INCREMENT,
+	`analysis_time` DATETIME NOT NULL,
+	`symbol` VARCHAR(20) NOT NULL DEFAULT '0',
+	`s_hour` INT(11) NOT NULL DEFAULT '0',
+	`t` FLOAT NOT NULL DEFAULT '0',
+	`income` FLOAT NOT NULL DEFAULT '0',
+	`scale` FLOAT NOT NULL DEFAULT '0',
+	`current` BIT(1) NOT NULL DEFAULT b'0',
+	`price` FLOAT NOT NULL DEFAULT '0',
+	`amount` FLOAT NOT NULL DEFAULT '0',
+	`vol` FLOAT NOT NULL DEFAULT '0',
+	PRIMARY KEY (`analysis_result_id`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=102
+;
+
+CREATE TABLE `order_item` (
+	`order_item_id` INT(11) NOT NULL AUTO_INCREMENT,
+	`amount` FLOAT NOT NULL DEFAULT '0',
+	`symbol` VARCHAR(20) NOT NULL DEFAULT '0',
+	`order_type` VARCHAR(20) NOT NULL DEFAULT '0',
+	`status` INT(11) NOT NULL DEFAULT '0',
+	`buy_price` FLOAT NOT NULL DEFAULT '0',
+	`sell_price` FLOAT NOT NULL DEFAULT '0',
+	`buy_time` DATETIME NOT NULL,
+	`t` FLOAT NOT NULL DEFAULT '0',
+	PRIMARY KEY (`order_item_id`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=3
+;
+
+
