@@ -21,6 +21,8 @@ CREATE TABLE IF NOT EXISTS `daily_trade` (
   `buy_order_id` int(11) DEFAULT NULL COMMENT '买单id，挂买单成功后更新到该字段',
   `buy_price` float DEFAULT NULL,
   `sell_order_id` int(11) DEFAULT NULL COMMENT '卖单id，挂卖单成功后更新到该字段',
+  `amount` float DEFAULT NULL COMMENT '币种成交量',
+  `vol` float DEFAULT NULL COMMENT 'ETH成交量',
   `status` int(11) NOT NULL COMMENT '当前状态',
   PRIMARY KEY (`daily_trade_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
