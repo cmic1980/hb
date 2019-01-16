@@ -50,11 +50,12 @@ CREATE TABLE `analysis_result` (
 	`price` FLOAT NOT NULL DEFAULT '0',
 	`amount` FLOAT NOT NULL DEFAULT '0',
 	`vol` FLOAT NOT NULL DEFAULT '0',
+	`days` INT(11) NOT NULL DEFAULT '0',
 	PRIMARY KEY (`analysis_result_id`)
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=1
+AUTO_INCREMENT=29
 ;
 
 CREATE TABLE `order_item` (

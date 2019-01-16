@@ -61,8 +61,7 @@ def show_analysis_table(kline_list, hour, t):
 
 
 def get_symbol_analysis(symbol, probability, show_detail=False):
-    kline_list = get_kline_ex(symbol, "60min", 1000)
-
+    kline_list = get_kline_ex(symbol, "60min", 2000)
     symbol_analysis = {}
 
     # 48小时 成交量， 为了找到投资成交量比较大币种
@@ -114,12 +113,15 @@ def get_symbol_analysis(symbol, probability, show_detail=False):
 def submit_analysis_result(analysis_time, symbol_analysis):
     symbol = symbol_analysis["symbol"]
     max_out = symbol_analysis["max_out"]
+    days = symbol_analysis["days"]
     if max_out != 0:
         hour = max_out["hour"]
         t = max_out["t"]
         income = max_out["income"]
         scale = max_out["scale"]
         price = max_out["price"]
+        amount = symbol_analysis["amount"]
+        vol = symbol_analysis["vol"]
         # Connect to the database
         connection = pymysql.connect(host='localhost',
                                      user='root',
@@ -130,8 +132,8 @@ def submit_analysis_result(analysis_time, symbol_analysis):
         try:
             with connection.cursor() as cursor:
                 # Create a new record
-                sql = "INSERT INTO `analysis_result` (`analysis_time`, `symbol`, `s_hour`, `t`, `income`, `scale`, `current`, `price`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-                cursor.execute(sql, (analysis_time, symbol, hour, t, income, scale, 1, price))
+                sql = "INSERT INTO `analysis_result` (`analysis_time`, `symbol`, `s_hour`, `t`, `income`, `scale`, `current`, `price`,`amount`,`vol`,`days`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                cursor.execute(sql, (analysis_time, symbol, hour, t, income, scale, 1, price,amount,vol,days))
 
             # connection is not autocommit by default. So you must commit to save
             # your changes.
