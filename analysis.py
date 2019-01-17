@@ -124,6 +124,7 @@ def submit_analysis_result(analysis_time, symbol_analysis):
         vol = symbol_analysis["vol"]
         # Connect to the database
         connection = pymysql.connect(host='localhost',
+                                     port=3306,
                                      user='root',
                                      password='password',
                                      db='hb',
@@ -144,6 +145,7 @@ def submit_analysis_result(analysis_time, symbol_analysis):
 
 def initial_analysis_result():
     connection = pymysql.connect(host='localhost',
+                                 port=3306,
                                  user='root',
                                  password='password',
                                  db='hb',

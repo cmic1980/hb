@@ -202,6 +202,8 @@ def send_order(amount, source, symbol, _type, price=0):
     if price:
         params["price"] = price
 
+
+
     url = '/v1/order/orders/place'
     return api_key_post(params, url)
 
